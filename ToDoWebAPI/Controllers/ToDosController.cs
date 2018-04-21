@@ -24,7 +24,7 @@ namespace ToDoWebAPI.Controllers
         {
             var toDosCollection = await toDosRepo.GetAll();
             return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);
-
+            
         }
 
         // GET api/values/5
