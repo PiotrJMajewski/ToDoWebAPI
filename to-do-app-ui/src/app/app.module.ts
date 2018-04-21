@@ -6,6 +6,7 @@ import { ToDoItemComponent } from './to-dos/to-do-item/to-do-item.component';
 import { ToDoIntegrationService } from './services/todo.integration.service';
 import { ToDoTransformationService } from './services/todo.transformation.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [ToDoIntegrationService, ToDoTransformationService],
   bootstrap: [AppComponent]

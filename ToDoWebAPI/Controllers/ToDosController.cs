@@ -38,26 +38,25 @@ namespace ToDoWebAPI.Controllers
         // POST api/values
         public async Task<HttpResponseMessage> Post([FromBody]ToDoItem value)
         {
-            try
-            {
-               await toDosRepo.AddAsync(value);
-            }
-            catch (Exception ex)
-            {
-                var thisException = ex;
-            }
+
+            await toDosRepo.AddAsync(value);
             return Request.CreateResponse(HttpStatusCode.OK, value);
 
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public async Task<HttpResponseMessage> Put([FromBody]ToDoItem value)
         {
+            await toDosRepo.Update(value);
+            return Request.CreateResponse(HttpStatusCode.OK, value);
+
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public async Task<HttpResponseMessage> Delete(int id)
         {
+            await toDosRepo.Delete(id);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

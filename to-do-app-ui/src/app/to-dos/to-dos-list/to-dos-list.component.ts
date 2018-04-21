@@ -2,6 +2,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { ToDoItem } from '../../models/todo.item';
 import { ToDoTransformationService } from '../../services/todo.transformation.service';
+import { NgModel } from '@angular/forms';
 
 @Component({
     selector: 'app-to-dos-list',
@@ -22,8 +23,9 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
 
     }
 
-    onItemAdd()
+    onItemAdd(toDoItem: NgModel)
     {
+        toDoItem.
 
     }
 

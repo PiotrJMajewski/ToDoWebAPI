@@ -29,8 +29,9 @@ export class ToDoTransformationService {
 
     callForRemovingItem(id: number) {
         this.integrationService.deleteToDoItemById(id).subscribe();
-        this.toDoMultipleItems.filter(item => item.Id != id);
+        //this.toDoMultipleItems.filter(item => item.Id != id);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+        this.callForMultipleItems();
     }
 
     callForCreatingItem(item: ToDoItem) {
@@ -41,11 +42,10 @@ export class ToDoTransformationService {
     }
 
     callForUpdatingItem(item: ToDoItem) {
-        this.integrationService.updateToDoItem(item).subscribe(data => this.toDoItem = data);
-        this.toDoMultipleItems.filter(filterItem => filterItem.Id != item.Id);
-        this.toDoMultipleItems.push(this.toDoItem);
+        this.integrationService.updateToDoItem(item).subscribe(data => {this.toDoItem = data;
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
         this.toDoSingleItemCaller.next(this.toDoItem);
+        });
     }
 
 

@@ -2,7 +2,7 @@
     <div class="card" style="width: 100%;">
         <div class="card-header">
             <h3>Items to do</h3>
-            <form>
+            <form (ngSubmit)="onItemAdd()" #toDoItem="ngForm" >
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <input type="text" id="todo" class="form-control" placeholder="Add new to-do item">
