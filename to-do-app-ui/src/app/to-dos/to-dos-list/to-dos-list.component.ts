@@ -16,6 +16,7 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
     private changeToDoItemSubscription = new Subscription;
     toDoMultipleItems: ToDoItem[] = [];
     toDoItem: ToDoItem;
+    tekst: string;
 
     constructor(private todoTransformationService: ToDoTransformationService) {
 
@@ -30,9 +31,13 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
         this.changeToDoListSubscription.unsubscribe();
     }
     ngOnInit(): void {
-        this.changeToDoListSubscription = this.todoTransformationService
-        .toDoMultipleItemsCaller.subscribe((multipleItems: ToDoItem[])=>this.toDoMultipleItems = multipleItems);
+        this.changeToDoListSubscription = 
+        this.todoTransformationService
+        .toDoMultipleItemsCaller.subscribe((multipleItems: ToDoItem[])=> {this.toDoMultipleItems = multipleItems});
 
         this.todoTransformationService.callForMultipleItems();
+        this.tekst = this.toDoMultipleItems[0].ToDoTask ;
+
+
     }
 }

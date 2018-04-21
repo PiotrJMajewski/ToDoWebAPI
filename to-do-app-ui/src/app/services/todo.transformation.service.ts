@@ -15,12 +15,13 @@ export class ToDoTransformationService {
     }
 
     callForMultipleItems() {
-        this.integrationService.getAllToDoItems().subscribe(items => this.toDoMultipleItems = items);
+        this.integrationService.getAllToDoItems().subscribe(data => {this.toDoMultipleItems = data;
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+        });
     }
 
     callForItem(id: number) {
-        this.integrationService.getToDoItemById(id).subscribe(item => this.toDoItem = item);
+        this.integrationService.getToDoItemById(id).subscribe(data => this.toDoItem = data);
         this.toDoMultipleItems.push(this.toDoItem);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
         this.toDoSingleItemCaller.next(this.toDoItem);
@@ -28,20 +29,20 @@ export class ToDoTransformationService {
 
     callForRemovingItem(id: number) {
         this.integrationService.deleteToDoItemById(id).subscribe();
-        this.toDoMultipleItems.filter(item => item.id != id);
+        this.toDoMultipleItems.filter(item => item.Id != id);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
     }
 
     callForCreatingItem(item: ToDoItem) {
-        this.integrationService.addNewToDoItem(item).subscribe(itemCreated => this.toDoItem = itemCreated);
+        this.integrationService.addNewToDoItem(item).subscribe(data => this.toDoItem = data);
         this.toDoMultipleItems.push(this.toDoItem);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
         this.toDoSingleItemCaller.next(this.toDoItem);
     }
 
     callForUpdatingItem(item: ToDoItem) {
-        this.integrationService.updateToDoItem(item).subscribe(itemUpdated => this.toDoItem = itemUpdated);
-        this.toDoMultipleItems.filter(filterItem => filterItem.id != item.id);
+        this.integrationService.updateToDoItem(item).subscribe(data => this.toDoItem = data);
+        this.toDoMultipleItems.filter(filterItem => filterItem.Id != item.Id);
         this.toDoMultipleItems.push(this.toDoItem);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
         this.toDoSingleItemCaller.next(this.toDoItem);

@@ -13,8 +13,10 @@
                 </div>
             </form>
         </div>
+        {{tekst}}
         <ul class="list-group list-group-flush">
-            <app-to-do-item></app-to-do-item>
+            <app-to-do-item *ngFor="let item of toDoMultipleItems;"[toDoItem]="item">
+            </app-to-do-item>
         </ul>
     </div>
 </div>

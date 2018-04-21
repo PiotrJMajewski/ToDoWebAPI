@@ -17,13 +17,13 @@ export class ToDoItemComponent {
 
     onItemComplete()
     {
-        this.toDoItem.isCompleted =true;
+        this.toDoItem.IsCompleted =true;
         this.todoTransformationService.callForUpdatingItem(this.toDoItem);
     }
 
     onItemRemove()
     {
-        this.todoTransformationService.callForRemovingItem(this.toDoItem.id);
+        this.todoTransformationService.callForRemovingItem(this.toDoItem.Id);
     }
 
     onItemEdit()

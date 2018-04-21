@@ -1,13 +1,13 @@
 ﻿export class ToDoItem {
-    public id: number;
-    public toDoTask: string;
-    public isCompleted: boolean;
-    public actualisationDate: string;
+    public Id: number;
+    public ToDoTask: string;
+    public IsCompleted: boolean;
+    public ActualisationDate: string;
 
     constructor(id: number, toDoTask: string, isCompleted: boolean, actualisationDate: string) {
-        this.id = id;
-        this.toDoTask = toDoTask;
-        this.isCompleted = isCompleted;
-        this.actualisationDate = actualisationDate;
+        this.Id = id;
+        this.ToDoTask = toDoTask;
+        this.IsCompleted = isCompleted;
+        this.ActualisationDate = actualisationDate;
     }
 }
