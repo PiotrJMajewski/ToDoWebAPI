@@ -13,11 +13,43 @@
                     </div>
                 </div>
             </form>
-        </div>
-              
+            <div class="row">
+                <span class="hover-cursor pull-right">
+                    <div *ngIf="currentItemVisible; then currentVisible; else currentNotVisible"></div>
+                    <ng-template #currentVisible>
+                        <a class="btn" href="#" (click)="onCurrentItemVisible()">
+                            <i class="fa fa-check-circle-o fa-2x"></i>
+                        </a>
+                    </ng-template>
+                    <ng-template #currentNotVisible>
+                        <a class="btn" href="#" (click)="onCurrentItemVisible()">
+                            <i class="fa fa-circle-o fa-2x"></i>
+                        </a>
+                    </ng-template>
+                    See active items
+            
+                    <div *ngIf="doneItemVisible; then doneVisible; else doneNotVisible"></div>
+                    <ng-template #doneVisible>
+                        <a class="btn" href="#" (click)="onDonetItemVisible()">
+                            <i class="fa fa-check-circle-o fa-2x"></i>
+                        </a>
+                    </ng-template>
+                    <ng-template #doneNotVisible>
+                        <a class="btn" href="#" (click)="onDonetItemVisible()">
+                            <i class="fa fa-circle-o fa-2x"></i>
+                        </a>
+                    </ng-template>See done items
+                </span>
+            </div>
+            </div>
+
+             {{itemsToDoLeft}}
         <ul class="list-group list-group-flush">
-            <app-to-do-item *ngFor="let item of toDoMultipleItems;"[toDoItem]="item">
+            <app-to-do-item *ngFor="let item of toDoMultipleItems;" [toDoItem]="item">
             </app-to-do-item>
         </ul>
+
+        
     </div>
 </div>
+

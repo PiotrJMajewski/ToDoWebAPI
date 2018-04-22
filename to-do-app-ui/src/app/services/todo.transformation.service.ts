@@ -9,7 +9,8 @@ export class ToDoTransformationService {
     toDoSingleItemCaller= new Subject<ToDoItem>();
     private toDoItem: ToDoItem;
     private toDoMultipleItems: ToDoItem[] = [];
-
+    testNum: number =0;
+    
     constructor(private integrationService: ToDoIntegrationService) {
         this.callForMultipleItems()
 
@@ -17,35 +18,50 @@ export class ToDoTransformationService {
 
     callForMultipleItems() {
         this.integrationService.getAllToDoItems().subscribe(data => {this.toDoMultipleItems = data;
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
         });
+        this.checkItemsLeftNumber() ;
     }
 
-    callForItem(id: number) {
-        this.integrationService.getToDoItemById(id).subscribe(data => this.toDoItem = data);
-        this.toDoMultipleItems.push(this.toDoItem);
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+    callForActiveItems() {
+        this.integrationService.getActiveToDoItem().subscribe(data => {this.toDoMultipleItems = data;
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+    });
+
+    }
+
+    callForDoneItems() {
+        this.integrationService.getDoneToDoItem().subscribe(data =>{ this.toDoMultipleItems = data;
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+    });
 
     }
 
     callForRemovingItem(id: number) {
         this.integrationService.deleteToDoItemById(id).subscribe(()=>{this.callForMultipleItems();
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
     });
     }
 
     callForCreatingItem(item: ToDoItem) {
         this.integrationService.addNewToDoItem(item).subscribe(data => {this.toDoItem = data;
         this.callForMultipleItems();
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
     });
     }
 
     callForUpdatingItem(item: ToDoItem) {
         this.integrationService.updateToDoItem(item).subscribe(data => {this.toDoItem = data;            
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
         });
         
+    }
+
+    checkItemsLeftNumber() 
+    {
+
+        this.toDoMultipleItems.forEach(item => {this.testNum = this.testNum+1})
+
     }
 
 

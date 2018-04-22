@@ -19,9 +19,14 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
     toDoMultipleItems: ToDoItem[] = [];
     toDoItem: ToDoItem;
     tekst: string;
+    currentItemVisible =  true;
+    doneItemVisible = true;
+    itemsToDoLeft: number;
+   
 
 
     constructor(private todoTransformationService: ToDoTransformationService) {
+               
 
     }
 
@@ -33,7 +38,6 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
             this.todoTransformationService.callForCreatingItem(newItem);
         }
 
-        console.log(this.itemForm)
 
     }
 
@@ -44,6 +48,61 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
         this.changeToDoListSubscription = 
         this.todoTransformationService
         .toDoMultipleItemsCaller.subscribe((multipleItems: ToDoItem[])=> {this.toDoMultipleItems = multipleItems});
-        this.todoTransformationService.callForMultipleItems();
+        this.todoTransformationService.callForMultipleItems();       
     }
+
+
+    onCurrentItemVisible()
+    {       
+        if(this.currentItemVisible)
+        {
+            this.currentItemVisible =false;       
+        }
+        else
+        {
+            this.currentItemVisible =true;;
+        }
+
+        this.setToDoItemsVisibility();
+
+    }
+
+    onDonetItemVisible()
+    {
+
+        if(this.doneItemVisible)
+        {
+            this.doneItemVisible =false;
+
+        }
+        else
+        {
+            this.doneItemVisible =true;;
+        }
+
+        this.setToDoItemsVisibility();
+    }
+
+    setToDoItemsVisibility()
+    {      
+
+        if(this.currentItemVisible && !this.doneItemVisible)
+        {
+            this.todoTransformationService.callForActiveItems();
+        }
+        else if(!this.currentItemVisible &&  this.doneItemVisible)
+        {           
+            this.todoTransformationService.callForDoneItems();
+        }
+        else if(!this.currentItemVisible &&  !this.doneItemVisible)
+        {   
+            this.toDoMultipleItems =[];
+        }  
+        else if(this.currentItemVisible &&  this.doneItemVisible) 
+        {
+            this.todoTransformationService.callForMultipleItems();
+        }
+        
+    }
+
 }

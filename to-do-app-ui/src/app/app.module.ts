@@ -7,6 +7,8 @@ import { ToDoIntegrationService } from './services/todo.integration.service';
 import { ToDoTransformationService } from './services/todo.transformation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BootstrapSwitchModule } from 'angular2-bootstrap-switch';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BootstrapSwitchModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [ToDoIntegrationService, ToDoTransformationService],
   bootstrap: [AppComponent]

@@ -21,7 +21,6 @@ namespace ToDoWebAPI.Controllers
             toDosRepo = new ToDosRepository();
         }
 
-        // GET api/values
         public async Task<HttpResponseMessage> Get()
         {
             var toDosCollection = await toDosRepo.GetAll();
@@ -29,13 +28,26 @@ namespace ToDoWebAPI.Controllers
             
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        public async Task<HttpResponseMessage> Get(int id)
         {
-            return "value";
+            List<ToDoItem> toDosCollection;
+
+            if (id==1)
+            {
+                toDosCollection = await toDosRepo.GetWhereAsync(c=>c.IsCompleted==true);
+            }
+            else if(id==2)
+            {
+                toDosCollection = await toDosRepo.GetWhereAsync(c => c.IsCompleted == false);
+            }
+            else
+            {
+                toDosCollection = await toDosRepo.GetAll();
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);
         }
 
-        // POST api/values
         public async Task<HttpResponseMessage> Post([FromBody]ToDoItem value)
         {
             value.ActualisationDate = DateTime.Now;
@@ -44,7 +56,6 @@ namespace ToDoWebAPI.Controllers
 
         }
 
-        // PUT api/values/5
         public async Task<HttpResponseMessage> Put([FromBody]ToDoItem value)
         {
             value.ActualisationDate = DateTime.Now;
@@ -53,7 +64,6 @@ namespace ToDoWebAPI.Controllers
 
         }
 
-        // DELETE api/values/5
         public async Task<HttpResponseMessage> Delete(int id)
         {
             await toDosRepo.Delete(id);
