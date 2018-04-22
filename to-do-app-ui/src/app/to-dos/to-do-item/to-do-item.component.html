@@ -1,31 +1,31 @@
 ﻿<li class="list-group-item  d-flex justify-content-between align-items-center" *ngIf="!isEditable">
-    <input type="checkbox" [(ngModel)]="toDoItem.IsCompleted" (click)="onItemComplete()"> {{toDoItem.ToDoTask}}
+    <input type="checkbox" [(ngModel)]="toDoItem.IsCompleted" [disabled]="toDoItem.IsCompleted" (click)="onItemComplete()">
+    <s style="color: rgb(199, 195, 195)" *ngIf="toDoItem.IsCompleted">{{toDoItem.ToDoTask}}</s>
+    <div *ngIf="!toDoItem.IsCompleted">{{toDoItem.ToDoTask}}</div>
     <span class="hover-cursor text-danger pull-right">
         <a class="btn" (click)="onItemEdit()" href="#">
             <i class="fa fa-pencil fa-lg"></i>
         </a>
-        <a class="btn" (click)="onItemRemove()" href="#" >
+        <a class="btn" (click)="onItemRemove()" href="#">
             <i class="fa fa-trash-o fa-lg"></i>
         </a>
     </span>
 </li>
-<li class="list-group-item  d-flex justify-content-between align-items-center" *ngIf="isEditable">
+<li class="list-group-item  " *ngIf="isEditable">
     <form (ngSubmit)="onItemEdit()" #editItemForm="ngForm">
         <div class="row">
-            <div class="col-sm-6 form-group">
-                <input type="text" id="todo" class="form-control update-item" placeholder="Modify to-do item" ngModel name="editToDo"
-                required [maxlength]="50">
+            <div class=" form-group" style="width: 100%;">
+                <input type="text" id="todo" class="form-control update-item" placeholder="Modify to-do item" ngModel name="editToDo" required
+                    [maxlength]="50" [(ngModel)]="toDoItem.ToDoTask">
             </div>
-            <div class="col-sm-2 form-group">
-                <span class="hover-cursor text-danger pull-right">
-                    <a class="btn" href="#" (click)="onItemSave()">
-                        <i class="fa fa-save fa-lg"></i>
-                    </a>
-                    <a class="btn" href="#" (click)="onItemDesist()">
-                        <i class="fa fa-times-circle fa-lg"></i>
-                    </a>
-                </span>
-            </div>
+            <span class="hover-cursor text-danger pull-right">
+                <a class="btn" href="#" (click)="onItemSave()">
+                    <i class="fa fa-save fa-lg"></i>
+                </a>
+                <a class="btn" href="#" (click)="onItemDesist()">
+                    <i class="fa fa-times-circle fa-lg"></i>
+                </a>
+            </span>
         </div>
     </form>
 </li>

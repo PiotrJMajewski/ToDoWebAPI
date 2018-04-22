@@ -12,45 +12,36 @@ import { NgForm } from '@angular/forms';
 export class ToDoItemComponent {
 
     @ViewChild("editItemForm") itemForm: NgForm
-    @Input() toDoItem:ToDoItem
+    @Input() toDoItem: ToDoItem
     isEditable: boolean = false;
 
     constructor(private todoTransformationService: ToDoTransformationService) {
     }
 
-    onItemComplete()
-    {
-        this.toDoItem.IsCompleted =true;
+    onItemComplete() {
+        this.toDoItem.IsCompleted = true;
         this.todoTransformationService.callForUpdatingItem(this.toDoItem);
     }
 
-    onItemRemove()
-    {
+    onItemRemove() {
         this.todoTransformationService.callForRemovingItem(this.toDoItem.Id);
     }
 
-    onItemEdit()
-    {
-
-            this.isEditable = true;
-            this.itemForm.value.editToDo
+    onItemEdit() {
+        this.isEditable = true;
+        this.itemForm.value.editToDo;
     }
 
-    onItemDesist()
-    {
+    onItemDesist() {
         this.isEditable = false;
-        this.itemForm.resetForm();
+        this.todoTransformationService.callForMultipleItems
     }
 
-    onItemSave()
-    {
-        if(this.itemForm.valid)
-        {
-        this.toDoItem.ToDoTask = this.itemForm.value.editToDo;
-        this.todoTransformationService.callForUpdatingItem(this.toDoItem);
-        this.isEditable = false;
+    onItemSave() {
+        if (this.itemForm.valid) {
+            this.toDoItem.ToDoTask = this.itemForm.value.editToDo;
+            this.todoTransformationService.callForUpdatingItem(this.toDoItem);
+            this.isEditable = false;
         }
-        
-
     }
 }

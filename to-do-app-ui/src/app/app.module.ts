@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     ToDosListComponent,
-    ToDoItemComponent, 
+    ToDoItemComponent,
   ],
   imports: [
     BrowserModule,

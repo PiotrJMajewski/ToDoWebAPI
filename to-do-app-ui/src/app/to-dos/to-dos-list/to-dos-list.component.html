@@ -1,7 +1,7 @@
 ﻿<div class="row">
     <div class="card" style="width: 100%;">
         <div class="card-header">
-            <h3>Items to do</h3>
+            <h2>What needs to be done?</h2>
             <form (ngSubmit)="onItemAdd()" #toDoItemForm="ngForm">
                 <div class="row">
                     <div class="col-sm-6 form-group">
@@ -40,7 +40,7 @@
                     </ng-template>See done items
                 </span>
             </div>
-            <p> {{itemsToDoLeft}} tasks to complete left</p>
+            <p> {{itemsToDoLeft}} tasks left to complete </p>
         </div>
         <ul class="list-group list-group-flush">
             <app-to-do-item *ngFor="let item of toDoMultipleItems;" [toDoItem]="item">

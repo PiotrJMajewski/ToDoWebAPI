@@ -6,53 +6,59 @@ import { ToDoItem } from "../Models/todo.item";
 @Injectable()
 export class ToDoTransformationService {
     toDoMultipleItemsCaller = new Subject<ToDoItem[]>();
-    toDoSingleItemCaller= new Subject<ToDoItem>();
+    toDoSingleItemCaller = new Subject<ToDoItem>();
     private toDoItem: ToDoItem;
     private toDoMultipleItems: ToDoItem[] = [];
-    
+
     constructor(private integrationService: ToDoIntegrationService) {
         this.callForMultipleItems()
 
     }
 
     callForMultipleItems() {
-        this.integrationService.getAllToDoItems().subscribe(data => {this.toDoMultipleItems = data;
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+        this.integrationService.getAllToDoItems().subscribe(data => {
+        this.toDoMultipleItems = data;
+            this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
         });
     }
 
     callForActiveItems() {
-        this.integrationService.getActiveToDoItem().subscribe(data => {this.toDoMultipleItems = data;
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
-    });
+        this.integrationService.getActiveToDoItem().subscribe(data => {
+        this.toDoMultipleItems = data;
+            this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+        });
 
     }
 
     callForDoneItems() {
-        this.integrationService.getDoneToDoItem().subscribe(data =>{ this.toDoMultipleItems = data;
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
-    });
+        this.integrationService.getDoneToDoItem().subscribe(data => {
+        this.toDoMultipleItems = data;
+            this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+        });
 
     }
 
     callForRemovingItem(id: number) {
-        this.integrationService.deleteToDoItemById(id).subscribe(()=>{this.callForMultipleItems();
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
-    });
+        this.integrationService.deleteToDoItemById(id).subscribe(() => {
+            this.callForMultipleItems();
+            this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+        });
     }
 
     callForCreatingItem(item: ToDoItem) {
-        this.integrationService.addNewToDoItem(item).subscribe(data => {this.toDoItem = data;
-        this.callForMultipleItems();
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
-    });
+        this.integrationService.addNewToDoItem(item).subscribe(data => {
+        this.toDoItem = data;
+            this.callForMultipleItems();
+            this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+        });
     }
 
     callForUpdatingItem(item: ToDoItem) {
-        this.integrationService.updateToDoItem(item).subscribe(data => {this.toDoItem = data;            
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
+        this.integrationService.updateToDoItem(item).subscribe(data => {
+        this.toDoItem = data;
+            this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
         });
-        
+
     }
-    
+
 }
