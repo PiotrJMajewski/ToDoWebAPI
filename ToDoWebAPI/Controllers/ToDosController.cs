@@ -38,7 +38,7 @@ namespace ToDoWebAPI.Controllers
         // POST api/values
         public async Task<HttpResponseMessage> Post([FromBody]ToDoItem value)
         {
-
+            value.ActualisationDate = DateTime.Now;
             await toDosRepo.AddAsync(value);
             return Request.CreateResponse(HttpStatusCode.OK, value);
 
@@ -47,6 +47,7 @@ namespace ToDoWebAPI.Controllers
         // PUT api/values/5
         public async Task<HttpResponseMessage> Put([FromBody]ToDoItem value)
         {
+            value.ActualisationDate = DateTime.Now;
             await toDosRepo.Update(value);
             return Request.CreateResponse(HttpStatusCode.OK, value);
 

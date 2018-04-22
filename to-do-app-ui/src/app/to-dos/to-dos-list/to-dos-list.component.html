@@ -2,10 +2,11 @@
     <div class="card" style="width: 100%;">
         <div class="card-header">
             <h3>Items to do</h3>
-            <form (ngSubmit)="onItemAdd()" #toDoItem="ngForm" >
+            <form (ngSubmit)="onItemAdd()" #toDoItemForm="ngForm" >
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <input type="text" id="todo" class="form-control" placeholder="Add new to-do item">
+                        <input type="text" id="todo" class="form-control" placeholder="Add new to-do item" 
+                         ngModel name="newToDoItem" required>
                     </div>
                     <div class="col-sm-6 form-group">
                         <button class="btn btn-success" type="submit">Add item</button>

@@ -1,8 +1,8 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ToDoItem } from '../../models/todo.item';
 import { ToDoTransformationService } from '../../services/todo.transformation.service';
-import { NgModel } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-to-dos-list',
@@ -13,19 +13,24 @@ import { NgModel } from '@angular/forms';
 export class ToDosListComponent implements OnInit,OnDestroy  {
     /** ToDosList ctor */
 
+    @ViewChild("toDoItemForm") itemForm: NgForm
     private changeToDoListSubscription = new Subscription;
     private changeToDoItemSubscription = new Subscription;
     toDoMultipleItems: ToDoItem[] = [];
     toDoItem: ToDoItem;
     tekst: string;
 
+
     constructor(private todoTransformationService: ToDoTransformationService) {
 
     }
 
-    onItemAdd(toDoItem: NgModel)
+    onItemAdd()
     {
-        toDoItem.
+        const newItem = new ToDoItem(0,this.itemForm.value.newToDoItem,false,Date.now().toString())
+        //const newItem = new ToDoItem(0,"somestaticTExt",false,"")
+        this.todoTransformationService.callForCreatingItem(newItem);
+        console.log(this.itemForm);
 
     }
 

@@ -1,11 +1,30 @@
-﻿<li class="list-group-item  d-flex justify-content-between align-items-center">
-    <input type="checkbox" [(ngModel)]="toDoItem.IsCompleted" (click)="onItemComplete()"> {{toDoItem.ToDoTask}} 
+﻿<li class="list-group-item  d-flex justify-content-between align-items-center" *ngIf="!isEditable">
+    <input type="checkbox" [(ngModel)]="toDoItem.IsCompleted" (click)="onItemComplete()"> {{toDoItem.ToDoTask}}
     <span class="hover-cursor text-danger pull-right">
-        <a class="btn" href="#">
+        <a class="btn" (click)="onItemEdit()" href="#">
             <i class="fa fa-pencil fa-lg"></i>
         </a>
-        <a class="btn" href="#" (click)="onItemRemove()">
+        <a class="btn" (click)="onItemRemove()" href="#" >
             <i class="fa fa-trash-o fa-lg"></i>
         </a>
     </span>
+</li>
+<li class="list-group-item  d-flex justify-content-between align-items-center" *ngIf="isEditable">
+    <form (ngSubmit)="onItemEdit()" #editItemForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <input type="text" id="todo" class="form-control" placeholder="Modify to-do item" ngModel name="editToDo">
+            </div>
+            <div class="col-sm-2 form-group">
+                <span class="hover-cursor text-danger pull-right">
+                    <a class="btn" href="#" (click)="onItemSave()">
+                        <i class="fa fa-save fa-lg"></i>
+                    </a>
+                    <a class="btn" type="submit" href="#" (click)="onItemDesist()">
+                        <i class="fa fa-times-circle fa-lg"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </form>
 </li>

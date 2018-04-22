@@ -1,6 +1,7 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, ViewChild } from '@angular/core';
 import { ToDoItem } from '../../models/todo.item';
 import { ToDoTransformationService } from '../../services/todo.transformation.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-to-do-item',
@@ -10,7 +11,9 @@ import { ToDoTransformationService } from '../../services/todo.transformation.se
 /** ToDoItem component*/
 export class ToDoItemComponent {
 
-@Input() toDoItem:ToDoItem
+    @ViewChild("editItemForm") itemForm: NgForm
+    @Input() toDoItem:ToDoItem
+    isEditable: boolean = false;
 
     constructor(private todoTransformationService: ToDoTransformationService) {
     }
@@ -28,6 +31,22 @@ export class ToDoItemComponent {
 
     onItemEdit()
     {
+        this.isEditable = true;
+        this.itemForm.value.editToDo
+    }
+
+    onItemDesist()
+    {
+        this.isEditable = false;
+        this.itemForm.resetForm();
+    }
+
+    onItemSave()
+    {
+        this.toDoItem.ToDoTask = this.itemForm.value.editToDo;
+        this.todoTransformationService.callForUpdatingItem(this.toDoItem);
+        this.isEditable = false;
         
+
     }
 }

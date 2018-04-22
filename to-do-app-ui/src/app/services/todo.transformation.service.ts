@@ -29,16 +29,15 @@ export class ToDoTransformationService {
 
     callForRemovingItem(id: number) {
         this.integrationService.deleteToDoItemById(id).subscribe();
-        //this.toDoMultipleItems.filter(item => item.Id != id);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
         this.callForMultipleItems();
     }
 
     callForCreatingItem(item: ToDoItem) {
-        this.integrationService.addNewToDoItem(item).subscribe(data => this.toDoItem = data);
-        this.toDoMultipleItems.push(this.toDoItem);
+        this.integrationService.addNewToDoItem(item).subscribe(data => {this.toDoItem = data;
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
-        this.toDoSingleItemCaller.next(this.toDoItem);
+        this.toDoSingleItemCaller.next(this.toDoItem);});
+        this.callForMultipleItems();
     }
 
     callForUpdatingItem(item: ToDoItem) {
