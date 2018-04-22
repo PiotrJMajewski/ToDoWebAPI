@@ -11,6 +11,7 @@ export class ToDoTransformationService {
     private toDoMultipleItems: ToDoItem[] = [];
 
     constructor(private integrationService: ToDoIntegrationService) {
+        this.callForMultipleItems()
 
     }
 
@@ -24,27 +25,27 @@ export class ToDoTransformationService {
         this.integrationService.getToDoItemById(id).subscribe(data => this.toDoItem = data);
         this.toDoMultipleItems.push(this.toDoItem);
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
-        this.toDoSingleItemCaller.next(this.toDoItem);
+
     }
 
     callForRemovingItem(id: number) {
-        this.integrationService.deleteToDoItemById(id).subscribe();
+        this.integrationService.deleteToDoItemById(id).subscribe(()=>{this.callForMultipleItems();
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
-        this.callForMultipleItems();
+    });
     }
 
     callForCreatingItem(item: ToDoItem) {
         this.integrationService.addNewToDoItem(item).subscribe(data => {this.toDoItem = data;
-        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
-        this.toDoSingleItemCaller.next(this.toDoItem);});
         this.callForMultipleItems();
+        this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
+    });
     }
 
     callForUpdatingItem(item: ToDoItem) {
-        this.integrationService.updateToDoItem(item).subscribe(data => {this.toDoItem = data;
+        this.integrationService.updateToDoItem(item).subscribe(data => {this.toDoItem = data;            
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems);
-        this.toDoSingleItemCaller.next(this.toDoItem);
         });
+        
     }
 
 

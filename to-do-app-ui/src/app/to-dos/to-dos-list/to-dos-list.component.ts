@@ -28,9 +28,8 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
     onItemAdd()
     {
         const newItem = new ToDoItem(0,this.itemForm.value.newToDoItem,false,Date.now().toString())
-        //const newItem = new ToDoItem(0,"somestaticTExt",false,"")
         this.todoTransformationService.callForCreatingItem(newItem);
-        console.log(this.itemForm);
+        //this.todoTransformationService.callForMultipleItems();
 
     }
 
