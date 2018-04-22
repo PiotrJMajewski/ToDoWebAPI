@@ -9,7 +9,6 @@ export class ToDoTransformationService {
     toDoSingleItemCaller= new Subject<ToDoItem>();
     private toDoItem: ToDoItem;
     private toDoMultipleItems: ToDoItem[] = [];
-    testNum: number =0;
     
     constructor(private integrationService: ToDoIntegrationService) {
         this.callForMultipleItems()
@@ -20,7 +19,6 @@ export class ToDoTransformationService {
         this.integrationService.getAllToDoItems().subscribe(data => {this.toDoMultipleItems = data;
         this.toDoMultipleItemsCaller.next(this.toDoMultipleItems.slice());
         });
-        this.checkItemsLeftNumber() ;
     }
 
     callForActiveItems() {
@@ -56,17 +54,5 @@ export class ToDoTransformationService {
         });
         
     }
-
-    checkItemsLeftNumber() 
-    {
-
-        this.toDoMultipleItems.forEach(item => {this.testNum = this.testNum+1})
-
-    }
-
-
-
-    
-
     
 }

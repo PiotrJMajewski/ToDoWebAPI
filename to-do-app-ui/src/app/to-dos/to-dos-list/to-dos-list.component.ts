@@ -21,13 +21,24 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
     tekst: string;
     currentItemVisible =  true;
     doneItemVisible = true;
-    itemsToDoLeft: number;
+    itemsToDoLeft: number =0;
    
 
 
     constructor(private todoTransformationService: ToDoTransformationService) {
                
 
+    }
+
+    countItemToDo() 
+    {
+        this.itemsToDoLeft = 0;
+        this.toDoMultipleItems.forEach(item=>{
+            if(!item.IsCompleted)
+            {
+                this.itemsToDoLeft = this.itemsToDoLeft +1 
+            }
+            })
     }
 
     onItemAdd()
@@ -48,7 +59,7 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
         this.changeToDoListSubscription = 
         this.todoTransformationService
         .toDoMultipleItemsCaller.subscribe((multipleItems: ToDoItem[])=> {this.toDoMultipleItems = multipleItems});
-        this.todoTransformationService.callForMultipleItems();       
+        this.todoTransformationService.callForMultipleItems();              
     }
 
 
@@ -97,6 +108,7 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
         else if(!this.currentItemVisible &&  !this.doneItemVisible)
         {   
             this.toDoMultipleItems =[];
+            this.itemsToDoLeft = 0
         }  
         else if(this.currentItemVisible &&  this.doneItemVisible) 
         {
