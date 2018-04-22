@@ -31,8 +31,9 @@ export class ToDoItemComponent {
 
     onItemEdit()
     {
-        this.isEditable = true;
-        this.itemForm.value.editToDo
+
+            this.isEditable = true;
+            this.itemForm.value.editToDo
     }
 
     onItemDesist()
@@ -43,9 +44,12 @@ export class ToDoItemComponent {
 
     onItemSave()
     {
+        if(this.itemForm.valid)
+        {
         this.toDoItem.ToDoTask = this.itemForm.value.editToDo;
         this.todoTransformationService.callForUpdatingItem(this.toDoItem);
         this.isEditable = false;
+        }
         
 
     }

@@ -27,9 +27,13 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
 
     onItemAdd()
     {
-        const newItem = new ToDoItem(0,this.itemForm.value.newToDoItem,false,Date.now().toString())
-        this.todoTransformationService.callForCreatingItem(newItem);
-        //this.todoTransformationService.callForMultipleItems();
+        if(this.itemForm.valid)
+        {
+            const newItem = new ToDoItem(0,this.itemForm.value.newToDoItem,false,Date.now().toString())
+            this.todoTransformationService.callForCreatingItem(newItem);
+        }
+
+        console.log(this.itemForm)
 
     }
 
@@ -40,10 +44,6 @@ export class ToDosListComponent implements OnInit,OnDestroy  {
         this.changeToDoListSubscription = 
         this.todoTransformationService
         .toDoMultipleItemsCaller.subscribe((multipleItems: ToDoItem[])=> {this.toDoMultipleItems = multipleItems});
-
         this.todoTransformationService.callForMultipleItems();
-        this.tekst = this.toDoMultipleItems[0].ToDoTask ;
-
-
     }
 }

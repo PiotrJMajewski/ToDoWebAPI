@@ -1,1 +1,4 @@
 ﻿
+input.ng-invalid.ng-touched.update-item {
+    border: 1px solid red;
+  }

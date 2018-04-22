@@ -13,14 +13,15 @@
     <form (ngSubmit)="onItemEdit()" #editItemForm="ngForm">
         <div class="row">
             <div class="col-sm-6 form-group">
-                <input type="text" id="todo" class="form-control" placeholder="Modify to-do item" ngModel name="editToDo">
+                <input type="text" id="todo" class="form-control update-item" placeholder="Modify to-do item" ngModel name="editToDo"
+                required [maxlength]="50">
             </div>
             <div class="col-sm-2 form-group">
                 <span class="hover-cursor text-danger pull-right">
                     <a class="btn" href="#" (click)="onItemSave()">
                         <i class="fa fa-save fa-lg"></i>
                     </a>
-                    <a class="btn" type="submit" href="#" (click)="onItemDesist()">
+                    <a class="btn" href="#" (click)="onItemDesist()">
                         <i class="fa fa-times-circle fa-lg"></i>
                     </a>
                 </span>

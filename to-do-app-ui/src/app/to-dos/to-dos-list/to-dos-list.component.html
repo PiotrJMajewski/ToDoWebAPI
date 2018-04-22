@@ -5,16 +5,16 @@
             <form (ngSubmit)="onItemAdd()" #toDoItemForm="ngForm" >
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <input type="text" id="todo" class="form-control" placeholder="Add new to-do item" 
-                         ngModel name="newToDoItem" required>
+                        <input type="text" id="todo" class="form-control" placeholder="Create new to-do item" 
+                         ngModel name="newToDoItem" required [maxlength]="50">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <button class="btn btn-success" type="submit">Add item</button>
+                        <button class="btn btn-success" type="submit" [disabled]="!toDoItemForm.valid">Add item</button>
                     </div>
                 </div>
             </form>
         </div>
-        {{tekst}}
+              
         <ul class="list-group list-group-flush">
             <app-to-do-item *ngFor="let item of toDoMultipleItems;"[toDoItem]="item">
             </app-to-do-item>
