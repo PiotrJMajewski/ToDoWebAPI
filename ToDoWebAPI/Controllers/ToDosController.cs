@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using ToDoListApp_DAL.Models;
 using ToDoListApp_DAL.Reposiitories;
+using ToDoWebAPI.Validation;
 
 namespace ToDoWebAPI.Controllers
 {
@@ -15,17 +16,18 @@ namespace ToDoWebAPI.Controllers
     public class ToDosController : ApiController
     {
         private ToDosRepository toDosRepo;
+        private ToDosValidation toDosValidation;
 
         public ToDosController()
         {
             toDosRepo = new ToDosRepository();
+            toDosValidation = new ToDosValidation();
         }
 
         public async Task<HttpResponseMessage> Get()
         {
             var toDosCollection = await toDosRepo.GetAll();
-            return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);
-            
+            return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);            
         }
 
         public async Task<HttpResponseMessage> Get(int id)
@@ -35,33 +37,50 @@ namespace ToDoWebAPI.Controllers
             if (id==1)
             {
                 toDosCollection = await toDosRepo.GetWhereAsync(c=>c.IsCompleted==true);
+                return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);
             }
             else if(id==2)
             {
                 toDosCollection = await toDosRepo.GetWhereAsync(c => c.IsCompleted == false);
+                return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);
             }
             else
             {
-                toDosCollection = await toDosRepo.GetAll();
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK, toDosCollection);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Cant get required data");
+            }        
         }
 
         public async Task<HttpResponseMessage> Post([FromBody]ToDoItem value)
         {
-            value.ActualisationDate = DateTime.Now;
-            await toDosRepo.AddAsync(value);
-            return Request.CreateResponse(HttpStatusCode.OK, value);
+            var validationResult = toDosValidation.Validate(value);
+
+            if(validationResult.IsValid)
+            {
+                value.ActualisationDate = DateTime.Now;
+                await toDosRepo.AddAsync(value);
+                return Request.CreateResponse(HttpStatusCode.OK, value);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest,"Input data is not valid");
+            }
 
         }
 
         public async Task<HttpResponseMessage> Put([FromBody]ToDoItem value)
         {
-            value.ActualisationDate = DateTime.Now;
-            await toDosRepo.Update(value);
-            return Request.CreateResponse(HttpStatusCode.OK, value);
+            var validationResult = toDosValidation.Validate(value);
 
+            if (validationResult.IsValid)
+            {
+                value.ActualisationDate = DateTime.Now;
+                await toDosRepo.Update(value);
+                return Request.CreateResponse(HttpStatusCode.OK, value);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Input data is not valid");
+            }
         }
 
         public async Task<HttpResponseMessage> Delete(int id)

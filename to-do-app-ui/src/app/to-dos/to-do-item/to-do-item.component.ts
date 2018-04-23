@@ -34,7 +34,7 @@ export class ToDoItemComponent {
 
     onItemDesist() {
         this.isEditable = false;
-        this.todoTransformationService.callForMultipleItems
+        this.todoTransformationService.callForMultipleItems();
     }
 
     onItemSave() {
