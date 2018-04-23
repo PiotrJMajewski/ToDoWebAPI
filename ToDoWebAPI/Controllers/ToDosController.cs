@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using ToDoDAL.Interfaces;
 using ToDoListApp_DAL.Models;
 using ToDoListApp_DAL.Reposiitories;
 using ToDoWebAPI.Validation;
@@ -15,13 +17,13 @@ namespace ToDoWebAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ToDosController : ApiController
     {
-        private ToDosRepository toDosRepo;
-        private ToDosValidation toDosValidation;
+        private AbstractRepository<ToDoItem> toDosRepo;
+        private AbstractValidator<IToDoItem> toDosValidation;
 
-        public ToDosController()
+        public ToDosController(AbstractRepository<ToDoItem> toDosRepo, AbstractValidator<IToDoItem> toDosValidation)
         {
-            toDosRepo = new ToDosRepository();
-            toDosValidation = new ToDosValidation();
+            this.toDosRepo = toDosRepo;
+            this.toDosValidation = toDosValidation;
         }
 
         public async Task<HttpResponseMessage> Get()

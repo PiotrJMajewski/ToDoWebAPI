@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ToDoListApp_DAL.Interfaces;
+using ToDoDAL.Interfaces;
+
 
 namespace ToDoListApp_DAL.Models
 {
-    public class ToDoItem: IBasicEntity
+    public class ToDoItem: IToDoItem
     {
         public int Id { get; set; }
         public string ToDoTask { get; set; } 

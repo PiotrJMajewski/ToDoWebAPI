@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ToDoDAL.Interfaces;
 using ToDoListApp_DAL.Models;
 
 namespace ToDoWebAPI.Validation
 {
-    public class ToDosValidation : AbstractValidator<ToDoItem>
+    public class ToDosValidation : AbstractValidator<IToDoItem>
     {
         public ToDosValidation()
         {
